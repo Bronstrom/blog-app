@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+<title>{{ config('app.name') }}: Welcome</title>
 
 @section('content')
 <div class="container">
@@ -7,16 +9,14 @@
             <div class="card">
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    @component('component.alert-success')
+                    @endcomponent
 
-                    <h2 style="margin-bottom:5px; margin-top:5px">All Posts</h2>
+                    <h2 style="margin-bottom:5px; margin-top:5px"><i>All Posts</i></h2>
                     @foreach ($posts as $post)
-                    <a href="/post/{{ $post->id }}"><h3>{{ $post->title }}</h3></a>
-
+                    <div style="padding-top:1em">
+                        <a href="/post/{{ $post->id }}"><h3>{{ $post->title }}</h3></a>
+                    </div>
                     {{ $post->body }}
                     @endforeach
                 </div>

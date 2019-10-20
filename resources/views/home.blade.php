@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+<title>{{ config('app.name') }}: Home</title>
 
 @section('content')
 <div class="container">
@@ -8,37 +10,19 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    @component('component.alert-success')
+                    @endcomponent
 
                     <form action="/post" method="post">
-                        @csrf
-
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="body">Body</label>
-                            <input type="text" class="form-control" id="body" name="body">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        @component('components.postform')
+                            @slot('title')
+                              <b>Submit</b>
+                            @endslot
+                        @endcomponent
                     </form>
 
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
+                    @component('component.alert-danger')
+                    @endcomponent
 
                     <h2 style="margin-bottom:5px; margin-top:5px">Your Posts</h2>
                     @foreach ($posts as $post)

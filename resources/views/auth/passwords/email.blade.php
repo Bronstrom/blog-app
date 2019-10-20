@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+<title>{{ config('app.name') }}: Reset Password</title>
 
 @section('content')
 <div class="container">
